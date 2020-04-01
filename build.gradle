@@ -20,7 +20,7 @@ compileJava {
 }
 
 minecraft {
-    version = "${minecraft_version}-14.23.4.2749"
+    version = "${minecraft_version}-14.23.5.2847"
     runDir = "run"
     mappings = "snapshot_20171003"
 

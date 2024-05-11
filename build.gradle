@@ -1,7 +1,6 @@
 buildscript {
     repositories {
-        jcenter()
-        maven { url = "http://files.minecraftforge.net/maven" }
+        maven { url = "https://files.minecraftforge.net/maven" }
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
@@ -46,12 +45,8 @@ repositories {
         url = "https://maven.blamejared.com/"
     }
     maven {
-        name = "tehnut"
-        url = "http://tehnut.info/maven"
-    }
-    maven {
-    	name = "Forestry Maven"
-    	url = "http://maven.ic2.player.to"
+        name = "CurseMaven"
+        url = "https://cursemaven.com"
     }
     maven {
         name = "CurseForge"
@@ -65,9 +60,9 @@ dependencies {
     deobfCompile "codechicken:ForgeMultipart:${minecraft_version}-${multipart_version}:deobf"
     deobfCompile "CraftTweaker2:CraftTweaker2-MC${stripped_version}-Main:${crafttweaker_version}"
     deobfCompile "mezz.jei:jei_${minecraft_version}:${jei_version}"
-    deobfCompile "net.sengir.forestry:forestry_${minecraft_version}:${forestry_version}"
-    deobfCompile "binnie:binnie-mods-${minecraft_version}:${binnie_version}"
+    deobfCompile "curse.maven:forestry-59751:2918418"
     deobfCompile "gregtechce:gregtech:${minecraft_version}:${gt_version}"
+    compile files("libs/binnie-mods-${minecraft_version}-${binnie_version}.jar")
 }
 
 processResources {

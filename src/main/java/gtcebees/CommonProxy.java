@@ -4,9 +4,11 @@ import forestry.api.recipes.ICentrifugeRecipe;
 import forestry.api.recipes.ISqueezerRecipe;
 import forestry.api.recipes.RecipeManagers;
 import forestry.core.items.ItemFluidContainerForestry;
+import forestry.core.utils.OreDictUtil;
 import gregtech.api.recipes.Recipe;
 import gregtech.api.recipes.RecipeMaps;
 import gregtech.api.recipes.builders.SimpleRecipeBuilder;
+import gtcebees.Items.GTCombItem;
 import gtcebees.Items.GTCombs;
 import gtcebees.Recipes.ForestryMachineRecipes;
 import gtcebees.Recipes.GTMachineRecipes;
@@ -19,6 +21,7 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.IForgeRegistry;
 
 import java.util.Collections;
@@ -74,6 +77,8 @@ public class CommonProxy {
     public static void registerItems(RegistryEvent.Register<Item> event) {
         IForgeRegistry<Item> registry = event.getRegistry();
         registry.register(GTCombs.combItem);
+        OreDictionary.registerOre(OreDictUtil.BEE_COMB, GTCombs.combItem);
+        OreDictionary.registerOre(OreDictUtil.BEE_COMB, new ItemStack(GTCombs.combItem, 1, OreDictionary.WILDCARD_VALUE));
     }
 
     private static <T extends Block> ItemBlock createItemBlock(T block, Function<T, ItemBlock> producer) {

@@ -32,12 +32,8 @@ public class GTCEBees {
     }
 
     @EventHandler
-    public void preInit(FMLPreInitializationEvent event) {
-        GTBees.preInit();
-    }
-
-    @EventHandler
     public void init(FMLInitializationEvent event) {
+        GTBees.preInit();
         GTBees.initBees();
     }
 

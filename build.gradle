@@ -62,7 +62,6 @@ dependencies {
     deobfCompile "mezz.jei:jei_${minecraft_version}:${jei_version}"
     deobfCompile "curse.maven:forestry-59751:2918418"
     deobfCompile "gregtechce:gregtech:${minecraft_version}:${gt_version}"
-    compile files("libs/binnie-mods-${minecraft_version}-${binnie_version}.jar")
 }
 
 processResources {

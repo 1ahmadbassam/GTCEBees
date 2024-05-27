@@ -6,7 +6,6 @@ import gregtech.api.recipes.RecipeMaps;
 import gregtech.api.unification.OreDictUnifier;
 import gregtech.api.unification.material.Materials;
 import gregtech.api.unification.ore.OrePrefix;
-import gregtech.common.items.MetaItems;
 import gtcebees.GTCEBeesConfig;
 import gtcebees.Items.GTCombItem;
 import gtcebees.Items.GTCombs;
@@ -23,7 +22,7 @@ public class GTMachineRecipes {
         RecipeMaps.FLUID_EXTRACTION_RECIPES.recipeBuilder().EUt(128).duration(256).inputs(ModuleCore.getItems().phosphor.getItemStack()).chancedOutput(OreDictUnifier.get(OrePrefix.dust, Materials.Phosphor), 1000, 1000).fluidOutputs(Materials.Lava.getFluid(800)).buildAndRegister();
 
         //Comb Autoclave Recipes
-        if (GTCEBeesConfig.Recipes.AutoclaverRecipes) {
+        if (GTCEBeesConfig.Recipes.AutoclaveRecipes) {
             RecipeMaps.AUTOCLAVE_RECIPES.recipeBuilder().EUt(384).duration(1280).inputs(GTCombItem.getComb(GTCombs.LIGNITE, 16)).fluidInputs(Materials.UUMatter.getFluid(1)).outputs(OreDictUnifier.get(OrePrefix.crushedPurified, Materials.Lignite)).buildAndRegister();
             RecipeMaps.AUTOCLAVE_RECIPES.recipeBuilder().EUt(384).duration(3072).inputs(GTCombItem.getComb(GTCombs.COAL, 16)).fluidInputs(Materials.UUMatter.getFluid(3)).outputs(OreDictUnifier.get(OrePrefix.crushedPurified, Materials.Coal)).buildAndRegister();
             RecipeMaps.AUTOCLAVE_RECIPES.recipeBuilder().EUt(384).duration(12544).inputs(GTCombItem.getComb(GTCombs.OIL, 16)).fluidInputs(Materials.UUMatter.getFluid(10)).outputs(OreDictUnifier.get(OrePrefix.crushedPurified, Materials.Oilsands)).buildAndRegister();

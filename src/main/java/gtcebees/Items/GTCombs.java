@@ -2,6 +2,7 @@ package gtcebees.Items;
 
 import net.minecraft.util.IStringSerializable;
 
+import javax.annotation.Nonnull;
 import java.awt.*;
 import java.util.Locale;
 
@@ -42,28 +43,15 @@ public enum GTCombs implements IStringSerializable {
     STARGATIUM(new Color(0x002400), new Color(0x002c00));
 
     public static final GTCombs[] VALUES = values();
-
+    public static final GTCombItem combItem = new GTCombItem();
     public final String name;
     public final int primaryColor;
     public final int secondaryColor;
-    private final boolean secret;
-
-    public static GTCombItem combItem = new GTCombItem();
 
     GTCombs(Color primary, Color secondary) {
-        this(primary, secondary, false);
-    }
-
-    GTCombs(Color primary, Color secondary, boolean secret) {
         this.name = toString().toLowerCase(Locale.ENGLISH);
         this.primaryColor = primary.getRGB();
         this.secondaryColor = secondary.getRGB();
-        this.secret = secret;
-    }
-
-    @Override
-    public String getName() {
-        return name;
     }
 
     public static GTCombs get(int meta) {
@@ -71,5 +59,11 @@ public enum GTCombs implements IStringSerializable {
             meta = 0;
         }
         return VALUES[meta];
+    }
+
+    @Override
+    @Nonnull
+    public String getName() {
+        return name;
     }
 }

@@ -15,7 +15,7 @@ public class GTCEBeesConfig {
         public boolean GenerateExtractorRecipes = true;
 
         @Config.Comment("Add Autoclave recipes for the Combs")
-        public boolean AutoclaverRecipes = true;
+        public boolean AutoclaveRecipes = true;
 
         @Config.Comment("Add Chemical Reactor recipes for the Combs")
         public boolean ReactorRecipes = true;

@@ -33,6 +33,7 @@ public class GTCEBees {
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
+        GTBees.preInit();
     }
 
     @EventHandler

@@ -21,13 +21,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import org.apache.commons.lang3.text.WordUtils;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.awt.*;
 import java.util.Arrays;
 import java.util.Locale;
 
 public enum GTBees implements IBeeDefinition {
-    //FUELISs
+    //FUELIS
     CLAY(GTBranches.FUELIS, "clay", true, new Color(0x19d0ec), new Color(0xe0c113)) {
         @Override
         protected void setSpeciesProperties(IAlleleBeeSpeciesBuilder beeSpecies) {
@@ -41,7 +42,7 @@ public enum GTBees implements IBeeDefinition {
 
         @Override
         protected void registerMutations() {
-            registerMutation(BeeDefinition.INDUSTRIOUS, BeeDefinition.DILIGENT, 20);
+            registerMutation(BeeDefinition.INDUSTRIOUS, BeeDefinition.DILIGENT);
         }
     },
     SLIME(GTBranches.FUELIS, "slime", true, new Color(0x4e9e55), new Color(0x00e012)) {
@@ -76,7 +77,7 @@ public enum GTBees implements IBeeDefinition {
             registerMutation(BeeDefinition.RURAL, CLAY, 20);
         }
     },
-    RUBBER(GTBranches.FUELIS, "rubbery", true, new Color(0x2e8f5b), new Color(0xdcc289)) {
+    RUBBER(GTBranches.FUELIS, "rubber", true, new Color(0x2e8f5b), new Color(0xdcc289)) {
         @Override
         protected void setSpeciesProperties(IAlleleBeeSpeciesBuilder beeSpecies) {
             beeSpecies.addProduct(MetaItems.RUBBER_DROP.getStackForm(), 0.15f);
@@ -137,7 +138,7 @@ public enum GTBees implements IBeeDefinition {
 
         @Override
         protected void registerMutations() {
-            registerMutation(BeeDefinition.INDUSTRIOUS, BeeDefinition.DEMONIC, 20);
+            registerMutation(BeeDefinition.INDUSTRIOUS, BeeDefinition.DEMONIC);
         }
     },
     LAPIS(GTBranches.ORNAMENTIS, "lapis", true, new Color(0x1947d), new Color(0x3e5fbf)) {
@@ -153,7 +154,7 @@ public enum GTBees implements IBeeDefinition {
 
         @Override
         protected void registerMutations() {
-            registerMutation(BeeDefinition.DEMONIC, BeeDefinition.IMPERIAL, 20);
+            registerMutation(BeeDefinition.DEMONIC, BeeDefinition.IMPERIAL);
         }
     },
     CERTUS(GTBranches.ORNAMENTIS, "certus", true, new Color(0x57cffb), new Color(0xaedded)) {
@@ -364,7 +365,7 @@ public enum GTBees implements IBeeDefinition {
             registerMutation(IRON, TIN, 20);
         }
     },
-    SILVER(GTBranches.METALIFERIS, "zinc", true, new Color(0xc2c2d6), new Color(0xbfbfce)) {
+    SILVER(GTBranches.METALIFERIS, "silver", true, new Color(0xc2c2d6), new Color(0xbfbfce)) {
         @Override
         protected void setSpeciesProperties(IAlleleBeeSpeciesBuilder beeSpecies) {
             beeSpecies.addProduct(GTCombItem.getComb(GTCombs.SLAG, 1), 0.3f);
@@ -441,7 +442,9 @@ public enum GTBees implements IBeeDefinition {
 
         @Override
         protected void registerMutations() {
-            registerMutation(TITANIUM, RUBY, 5).addMutationCondition(new MutationConditionRequiresResource("blockChrome"));
+            IBeeMutationBuilder builder = registerMutation(TITANIUM, RUBY, 5);
+            if (builder != null)
+                builder.addMutationCondition(new MutationConditionRequiresResource("blockChrome"));
         }
     },
     MANGANESE(GTBranches.MINERALLIS, "manganese", true, new Color(0xd5d5d5), new Color(0x999999)) {
@@ -457,7 +460,9 @@ public enum GTBees implements IBeeDefinition {
 
         @Override
         protected void registerMutations() {
-            registerMutation(TITANIUM, ALUMINIUM, 5).addMutationCondition(new MutationConditionRequiresResource("blockManganese"));
+            IBeeMutationBuilder builder = registerMutation(TITANIUM, ALUMINIUM, 5);
+            if (builder != null)
+                builder.addMutationCondition(new MutationConditionRequiresResource("blockManganese"));
         }
     },
     TUNGSTEN(GTBranches.MINERALLIS, "tungsten", true, new Color(0x5c5c8a), new Color(0x717191)) {
@@ -473,7 +478,9 @@ public enum GTBees implements IBeeDefinition {
 
         @Override
         protected void registerMutations() {
-            registerMutation(BeeDefinition.HEROIC, MANGANESE, 5).addMutationCondition(new MutationConditionRequiresResource("blockTungsten"));
+            IBeeMutationBuilder builder = registerMutation(BeeDefinition.HEROIC, MANGANESE, 5);
+            if (builder != null)
+                builder.addMutationCondition(new MutationConditionRequiresResource("blockTungsten"));
         }
     },
     PLATINUM(GTBranches.MINERALLIS, "platinum", true, new Color(0xe6e6e6), new Color(0xededbe)) {
@@ -489,7 +496,9 @@ public enum GTBees implements IBeeDefinition {
 
         @Override
         protected void registerMutations() {
-            registerMutation(DIAMOND, CHROME, 5);
+            IBeeMutationBuilder builder = registerMutation(DIAMOND, CHROME, 5);
+            if (builder != null)
+                builder.addMutationCondition(new MutationConditionRequiresResource("blockPlatinum"));
         }
     },
     IRIDIUM(GTBranches.MINERALLIS, "iridium", true, new Color(0xdadada), new Color(0xbcbcca)) {
@@ -505,7 +514,9 @@ public enum GTBees implements IBeeDefinition {
 
         @Override
         protected void registerMutations() {
-            registerMutation(TUNGSTEN, PLATINUM, 5).addMutationCondition(new MutationConditionRequiresResource("blockIridium"));
+            IBeeMutationBuilder builder = registerMutation(TUNGSTEN, PLATINUM, 5);
+            if (builder != null)
+                builder.addMutationCondition(new MutationConditionRequiresResource("blockIridium"));
         }
     },
     URANIUM(GTBranches.CRITICALIS, "uranium", true, new Color(0x19af19), new Color(0x149314)) {
@@ -521,10 +532,12 @@ public enum GTBees implements IBeeDefinition {
 
         @Override
         protected void registerMutations() {
-            registerMutation(BeeDefinition.AVENGING, PLATINUM, 5).addMutationCondition(new MutationConditionRequiresResource("blockUranium"));
+            IBeeMutationBuilder builder = registerMutation(BeeDefinition.AVENGING, PLATINUM, 5);
+            if (builder != null)
+                builder.addMutationCondition(new MutationConditionRequiresResource("blockUranium"));
         }
     },
-    PLUTONIUM(GTBranches.CRITICALIS, "platinum", true, new Color(0x335c33), new Color(0x638500)) {
+    PLUTONIUM(GTBranches.CRITICALIS, "plutonium", true, new Color(0x335c33), new Color(0x638500)) {
         @Override
         protected void setSpeciesProperties(IAlleleBeeSpeciesBuilder beeSpecies) {
             beeSpecies.addProduct(GTCombItem.getComb(GTCombs.SLAG, 1), 0.3f);
@@ -537,7 +550,9 @@ public enum GTBees implements IBeeDefinition {
 
         @Override
         protected void registerMutations() {
-            registerMutation(URANIUM, EMERALD, 5).addMutationCondition(new MutationConditionRequiresResource("blockPlutonium"));
+            IBeeMutationBuilder builder = registerMutation(URANIUM, EMERALD, 5);
+            if (builder != null)
+                builder.addMutationCondition(new MutationConditionRequiresResource("blockPlutonium"));
         }
     },
     NAQUADAH(GTBranches.CRITICALIS, "naquadah", true, new Color(0x003300), new Color(0x002000)) {
@@ -553,7 +568,9 @@ public enum GTBees implements IBeeDefinition {
 
         @Override
         protected void registerMutations() {
-            registerMutation(PLUTONIUM, IRIDIUM, 3).addMutationCondition(new MutationConditionRequiresResource("blockNaquadah"));
+            IBeeMutationBuilder builder = registerMutation(PLUTONIUM, IRIDIUM, 3);
+            if (builder != null)
+                builder.addMutationCondition(new MutationConditionRequiresResource("blockNaquadah"));
         }
     };
     private final GTBranches branch;
@@ -574,22 +591,15 @@ public enum GTBees implements IBeeDefinition {
         String name = "for.bees.species." + lowercaseName;
 
         this.branch = branch;
-        IAlleleBeeSpeciesBuilder speciesBuilder = BeeManager.beeFactory.createSpecies(modId, uid, dominant, "Sengir", name, description, branch.getBranch(), binomial, primary.getRGB(), secondary.getRGB());
-        if (isSecret()) {
-            speciesBuilder.setIsSecret();
-        }
-        setSpeciesProperties(speciesBuilder);
-        this.species = speciesBuilder.build();
-    }
-
-    protected abstract void setSpeciesProperties(IAlleleBeeSpeciesBuilder beeSpecies);
-
-    protected abstract void setAlleles(IAllele[] template);
-
-    protected abstract void registerMutations();
-
-    protected boolean isSecret() {
-        return false;
+        if (BeeManager.beeFactory != null) {
+            IAlleleBeeSpeciesBuilder speciesBuilder = BeeManager.beeFactory.createSpecies(modId, uid, dominant, "Sengir", name, description, branch.getBranch(), binomial, primary.getRGB(), secondary.getRGB());
+            if (isSecret()) {
+                speciesBuilder.setIsSecret();
+            }
+            setSpeciesProperties(speciesBuilder);
+            this.species = speciesBuilder.build();
+        } else
+            this.species = null;
     }
 
     public static void initBees() {
@@ -602,38 +612,59 @@ public enum GTBees implements IBeeDefinition {
     }
 
     public static void preInit() {
-        MinecraftForge.EVENT_BUS.post(new AlleleSpeciesRegisterEvent<>(BeeManager.beeRoot, IAlleleBeeSpecies.class));
+        if (BeeManager.beeRoot != null)
+            MinecraftForge.EVENT_BUS.post(new AlleleSpeciesRegisterEvent<>(BeeManager.beeRoot, IAlleleBeeSpecies.class));
+    }
+
+    protected abstract void setSpeciesProperties(IAlleleBeeSpeciesBuilder beeSpecies);
+
+    protected abstract void setAlleles(IAllele[] template);
+
+    protected abstract void registerMutations();
+
+    protected boolean isSecret() {
+        return false;
     }
 
     private void init() {
         template = branch.getTemplate();
         AlleleHelper.getInstance().set(template, EnumBeeChromosome.SPECIES, species);
         setAlleles(template);
-
-        genome = BeeManager.beeRoot.templateAsGenome(template);
+        if (BeeManager.beeRoot != null)
+            genome = BeeManager.beeRoot.templateAsGenome(template);
 
         BeeManager.beeRoot.registerTemplate(template);
     }
 
     protected final IBeeMutationBuilder registerMutation(GTBees parent1, GTBees parent2, int chance) {
-        return BeeManager.beeMutationFactory.createMutation(parent1.species, parent2.species, getTemplate(), chance);
+        if (BeeManager.beeMutationFactory != null)
+            return BeeManager.beeMutationFactory.createMutation(parent1.species, parent2.species, getTemplate(), chance);
+        return null;
     }
 
-    protected final IBeeMutationBuilder registerMutation(BeeDefinition parent1, BeeDefinition parent2, int chance) {
-        return BeeManager.beeMutationFactory.createMutation(parent1.getGenome().getPrimary(), parent2.getGenome().getPrimary(), getTemplate(), chance);
+    protected final void registerMutation(BeeDefinition parent1, BeeDefinition parent2) {
+        if (BeeManager.beeMutationFactory != null) {
+            BeeManager.beeMutationFactory.createMutation(parent1.getGenome().getPrimary(), parent2.getGenome().getPrimary(), getTemplate(), 20);
+        }
     }
 
     protected final IBeeMutationBuilder registerMutation(BeeDefinition parent1, GTBees parent2, int chance) {
-        return BeeManager.beeMutationFactory.createMutation(parent1.getGenome().getPrimary(), parent2.species, getTemplate(), chance);
+        if (BeeManager.beeMutationFactory != null)
+            return BeeManager.beeMutationFactory.createMutation(parent1.getGenome().getPrimary(), parent2.species, getTemplate(), chance);
+        return null;
     }
 
-    protected final IBeeMutationBuilder registerMutation(GTBees parent1, BeeDefinition parent2, int chance) {
-        return BeeManager.beeMutationFactory.createMutation(parent1.species, parent2.getGenome().getPrimary(), getTemplate(), chance);
+    protected final void registerMutation(GTBees parent1, BeeDefinition parent2, int chance) {
+        if (BeeManager.beeMutationFactory != null)
+            BeeManager.beeMutationFactory.createMutation(parent1.species, parent2.getGenome().getPrimary(), getTemplate(), chance);
     }
 
     @Override
+    @Nonnull
     public final IAllele[] getTemplate() {
-        return Arrays.copyOf(template, template.length);
+        if (template != null)
+            return Arrays.copyOf(template, template.length);
+        return new IAllele[0];
     }
 
     @Override
@@ -643,12 +674,16 @@ public enum GTBees implements IBeeDefinition {
 
     @Override
     public final IBee getIndividual() {
-        return new Bee(genome);
+        if (genome != null)
+            return new Bee(genome);
+        return null;
     }
 
     @Override
-    public final ItemStack getMemberStack(EnumBeeType beeType) {
+    public final ItemStack getMemberStack(@Nonnull EnumBeeType beeType) {
         IBee bee = getIndividual();
-        return BeeManager.beeRoot.getMemberStack(bee, beeType);
+        if (BeeManager.beeRoot != null && bee != null)
+            return BeeManager.beeRoot.getMemberStack(bee, beeType);
+        return null;
     }
 }

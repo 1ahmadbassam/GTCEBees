@@ -9,6 +9,7 @@ import forestry.core.genetics.IBranchDefinition;
 import forestry.core.genetics.alleles.AlleleHelper;
 import forestry.core.genetics.alleles.EnumAllele;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.Locale;
@@ -63,7 +64,7 @@ public enum GTBranches implements IBranchDefinition {
             AlleleHelper.getInstance().set(alleles, EnumBeeChromosome.CAVE_DWELLING, false);
         }
     },
-    MINERALLIS("Mineralis") {
+    MINERALLIS("Minerallis") {
         @Override
         protected void setBranchProperties(IAllele[] alleles) {
             AlleleHelper.getInstance().set(alleles, EnumBeeChromosome.LIFESPAN, EnumAllele.Lifespan.SHORTER);
@@ -96,30 +97,16 @@ public enum GTBranches implements IBranchDefinition {
         }
     };
 
+    @Nullable
+    private static IAllele[] defaultTemplate;
     private final IClassification branch;
 
     GTBranches(String scientific) {
-        branch = BeeManager.beeFactory.createBranch(this.name().toLowerCase(Locale.ENGLISH), scientific);
+        if (BeeManager.beeFactory != null)
+            branch = BeeManager.beeFactory.createBranch(this.name().toLowerCase(Locale.ENGLISH), scientific);
+        else
+            branch = null;
     }
-
-    protected void setBranchProperties(IAllele[] template) {
-
-    }
-
-    @Override
-    public final IAllele[] getTemplate() {
-        IAllele[] template = getDefaultTemplate();
-        setBranchProperties(template);
-        return template;
-    }
-
-    @Override
-    public final IClassification getBranch() {
-        return branch;
-    }
-
-    @Nullable
-    private static IAllele[] defaultTemplate;
 
     private static IAllele[] getDefaultTemplate() {
         if (defaultTemplate == null) {
@@ -139,5 +126,22 @@ public enum GTBranches implements IBranchDefinition {
             AlleleHelper.getInstance().set(defaultTemplate, EnumBeeChromosome.EFFECT, AlleleEffects.effectNone);
         }
         return Arrays.copyOf(defaultTemplate, defaultTemplate.length);
+    }
+
+    protected void setBranchProperties(IAllele[] template) {
+    }
+
+    @Override
+    @Nonnull
+    public final IAllele[] getTemplate() {
+        IAllele[] template = getDefaultTemplate();
+        setBranchProperties(template);
+        return template;
+    }
+
+    @Override
+    @Nonnull
+    public final IClassification getBranch() {
+        return branch;
     }
 }

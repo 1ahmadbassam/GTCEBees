@@ -17,20 +17,19 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @Mod.EventBusSubscriber(Side.CLIENT)
 public class ClientProxy extends CommonProxy {
+    @SubscribeEvent
+    public static void registerModels(ModelRegistryEvent event) {
+        GTCombs.combItem.registerModel(GTCombs.combItem, ForestryAPI.modelManager);
+    }
+
     public void preInit() {
         super.preInit();
     }
 
     public void postInit() {
-
         ItemColors itemColors = Minecraft.getMinecraft().getItemColors();
         itemColors.registerItemColorHandler(ColoredItemItemColor.INSTANCE, GTCombs.combItem);
         super.postInit();
-    }
-
-    @SubscribeEvent
-    public static void registerModels(ModelRegistryEvent event) {
-        GTCombs.combItem.registerModel(GTCombs.combItem, ForestryAPI.modelManager);
     }
 
     @SideOnly(Side.CLIENT)
@@ -38,7 +37,6 @@ public class ClientProxy extends CommonProxy {
         public static final ClientProxy.ColoredItemItemColor INSTANCE = new ClientProxy.ColoredItemItemColor();
 
         private ColoredItemItemColor() {
-
         }
 
         @Override
